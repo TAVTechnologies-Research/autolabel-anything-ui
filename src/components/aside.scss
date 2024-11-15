@@ -1,0 +1,42 @@
+.aside {
+	display: flex;
+	flex-direction: column;
+	width: 40%;
+	border-radius: 12px;
+	background-color: rgb(26, 28, 31);
+	padding: 1em;
+
+	&__header {
+		display: flex;
+		flex-direction: column;
+		color: white;
+		font-weight: 500;
+		font-size: 1rem;
+		gap: 10px;
+		padding-bottom: 0.75rem;
+		margin-bottom: 10px;
+		border-bottom: 1px solid rgb(0, 0, 0);
+
+		.steps {
+			width: 3rem;
+			background: white;
+			padding: 2px;
+			border: 1px solid rgb(0, 0, 0);
+			border-radius: 12px;
+			line-height: 1.5;
+			text-align: center;
+			color: rgb(0, 0, 0);
+		}
+	}
+
+	&__content {
+		flex: 1;
+		align-content: flex-end;
+	}
+
+	&__footer {
+		display: flex;
+		flex: 1;
+		align-items: flex-end;
+	}
+}

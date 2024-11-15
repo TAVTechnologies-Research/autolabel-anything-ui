@@ -1,0 +1,32 @@
+.basket {
+	display: flex;
+	flex-direction: column;
+	cursor: pointer;
+	gap: 10px;
+
+	&__header {
+		p {
+			color: rgb(156, 163, 175);
+		}
+	}
+
+	&__items {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		height: 65vh;
+		overflow-y: auto;
+	}
+
+	&__item {
+		display: flex;
+		padding: 12px;
+		gap: 10px;
+		border-radius: 16px;
+		background: rgb(0, 0, 0);
+
+		img {
+			border-radius: 16px;
+		}
+	}
+}

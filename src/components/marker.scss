@@ -1,0 +1,7 @@
+.marker-item {
+	transition: scale 0.2s;
+
+	&:hover {
+		scale: 1.1;
+	}
+}

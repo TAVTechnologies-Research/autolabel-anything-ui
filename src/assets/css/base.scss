@@ -1,0 +1,43 @@
+html *,
+body * {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Open Sans';
+	background: rgb(236 254 255);
+	overflow: hidden;
+
+	&::after {
+		content: '© TAV Technologies VL v1.0.0';
+		position: absolute;
+		right: 25px;
+		bottom: 4px;
+		color: rgb(255, 255, 255, 0.5);
+		text-indent: 5px;
+		font-size: 12px;
+	}
+}
+
+.scroll {
+	&::-webkit-scrollbar-track {
+		background-color: rgb(26, 28, 31, 0.5);
+		border-radius: 0px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		border-radius: 0px;
+		background-color: rgb(26, 28, 31, 0.5);
+	}
+
+	&::-webkit-scrollbar-corner {
+		background: rgb(26, 28, 31, 0.5);
+	}
+
+	&::-webkit-scrollbar {
+		width: 4px;
+	}
+
+	scrollbar-color: rgb(26, 28, 31, 0.5) rgb(26, 28, 31, 0.8);
+	scrollbar-width: 4px;
+}

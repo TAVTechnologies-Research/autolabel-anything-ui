@@ -1,0 +1,24 @@
+.tool {
+	display: flex;
+	flex-direction: column;
+	align-self: flex-start;
+	align-items: center;
+
+	&__item {
+		gap: 10px;
+		transition: scale 0.3s;
+
+		&:hover:not(.rotate) {
+			scale: 0.9;
+		}
+
+		&.rotate {
+			cursor: default;
+			color: rgba(255, 255, 255, 0.3);
+			letter-spacing: 5px;
+			transform-origin: center;
+			transform: rotate(-90deg);
+			margin-top: 25px;
+		}
+	}
+}
