@@ -183,7 +183,11 @@ const FramePlayer = forwardRef<FramePlayerMethods, FramePlayerProps>(
 					/>
 
 					{step === 1 && (
-						<div role="status" className="flex absolute items-center justify-center w-full h-96 bg-gray-300 rounded-lg dark:bg-gray-700">
+						<div
+							role="status"
+							style={{ width: frameWidth, height: frameHeight }}
+							className="flex absolute items-center justify-center bg-gray-300 rounded-lg dark:bg-gray-700"
+						>
 							<svg
 								className="w-10 h-10 text-gray-200 dark:text-gray-600"
 								aria-hidden="true"
@@ -206,7 +210,6 @@ const FramePlayer = forwardRef<FramePlayerMethods, FramePlayerProps>(
 						framesLength={cachedImages.length}
 						loadedImages={loadedImages}
 						setIsPlaying={setIsPlaying}
-						isPlaying={isPlaying}
 						setCurrentSecond={setCurrentSecond}
 						setCurrentFrame={setCurrentFrame}
 						currentSecond={currentSecond}

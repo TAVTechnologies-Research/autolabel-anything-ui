@@ -8,7 +8,11 @@ const Search: React.FC<SearchProps> = ({ onSearch, value }) => {
 	return (
 		<div className="relative w-full max-w-sm min-w-[200px]">
 			<input
-				className="w-full bg-transparent placeholder:text-slate-400 text-slate-400 text-sm border border-slate-200 rounded-md pl-3 pr-28 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+				className="w-full bg-[rgb(26,28,31)] text-slate-400 text-sm border border-slate-700 rounded-lg px-3 py-2.5
+transition-all duration-200 ease-in-out
+focus:outline-none focus:border-[rgb(56,128,243)] focus:ring-2 focus:ring-[rgb(56,128,243)]/20
+hover:border-slate-600
+[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
 				placeholder="Search for AI videos..."
 				value={value}
 				onChange={(e) => onSearch(e.target.value)}
