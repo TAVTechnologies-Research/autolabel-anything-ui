@@ -155,7 +155,7 @@ const FramePlayer = forwardRef<FramePlayerMethods, FramePlayerProps>(
 
 		return (
 			<div
-				className="flex flex-1 pr-4 py-6 items-center justify-center"
+				className="flex flex-1 pr-4 py-6 items-start justify-center"
 				style={{
 					background: 'rgb(26, 28, 31)',
 					borderRadius: 12,
