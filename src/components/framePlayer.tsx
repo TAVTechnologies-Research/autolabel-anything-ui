@@ -157,7 +157,7 @@ const FramePlayer = forwardRef<FramePlayerMethods, FramePlayerProps>(
 			<div
 				className="flex flex-1 pr-4 py-6 items-start justify-center"
 				style={{
-					background: 'rgb(26, 28, 31)',
+					background: 'rgb(17, 19, 23)',
 					borderRadius: 12,
 					pointerEvents: loadedImages ? 'all' : 'none',
 				}}
