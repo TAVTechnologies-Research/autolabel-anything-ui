@@ -75,16 +75,17 @@ const App: React.FC = () => {
 	useEffect(() => {
 		const handleBeforeUnload = (event: BeforeUnloadEvent) => {
 			const serverUrl = process.env?.REACT_APP_SERVER_URL
-			navigator.sendBeacon(
-				`${serverUrl}/tasks/inference/terminate?task_uuid=${modelUuid}`,
-				JSON.stringify({ ai_model_id: aiModel, video_id: video.video_id }),
-			)
+
+			if (modelUuid && aiModel && video?.video_id) {
+				const data = new Blob([JSON.stringify({ ai_model_id: aiModel, video_id: video.video_id })], { type: 'application/json' })
+
+				navigator.sendBeacon(`${serverUrl}/tasks/inference/terminate?task_uuid=${modelUuid}`, data)
+			}
 		}
 
 		window.addEventListener('beforeunload', handleBeforeUnload)
-
 		return () => window.removeEventListener('beforeunload', handleBeforeUnload)
-	}, [])
+	}, [modelUuid, aiModel, video])
 
 	const fetchVideoMetadata = (videoId: string): void => {
 		setFetching(true)
