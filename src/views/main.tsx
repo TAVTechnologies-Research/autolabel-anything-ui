@@ -50,13 +50,14 @@ const App: React.FC = () => {
 			ws.addMessageHandler(async (message: WebsocketMessage) => {
 				switch (message.msg_type) {
 					case 'frame':
-						const thumbnails: object = message.meta.objectThumbnails
+						const messageThumbnails: object = message.meta?.objectThumbnails || {}
+
+						setThumbnails((prevThumbnails) => ({
+							...prevThumbnails,
+							...messageThumbnails,
+						}))
+
 						const data = message.data
-
-						if (thumbnails) {
-							setThumbnails(thumbnails)
-						}
-
 						await cacheImageUpdate({ image_base64: data.image_base64 }, data.frame_number)
 						framePlayerRef.current?.drawFrame(data.frame_number)
 						framePlayerRef.current?.setCurrentFrame(data.frame_number)
@@ -151,51 +152,75 @@ const App: React.FC = () => {
 
 	const initModel = async (video_id: number) => {
 		const serverUrl = process.env?.REACT_APP_SERVER_URL
-		const response = await fetch(`${serverUrl}/tasks/inference/initialize`, {
-			body: JSON.stringify({ ai_model_id: aiModel, video_id }),
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-		})
-		const data = await response.json()
-		setModelUuid(data.data.uuid)
-		return data.data.uuid
+		try {
+			const response = await fetch(`${serverUrl}/tasks/inference/initialize`, {
+				body: JSON.stringify({ ai_model_id: aiModel, video_id }),
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+			})
+			const data = await response.json()
+			setModelUuid(data.data.uuid)
+			return data.data.uuid
+		} catch (error) {
+			console.error(error)
+		}
 	}
 
 	const terminateModel = async (uuid: string) => {
 		const serverUrl = process.env?.REACT_APP_SERVER_URL
-		await fetch(`${serverUrl}/tasks/inference/terminate?task_uuid=${uuid}`, {
-			method: 'POST',
-			body: JSON.stringify({ ai_model_id: aiModel, video_id: video.video_id }),
-			headers: { 'Content-Type': 'application/json' },
-		})
+		try {
+			await fetch(`${serverUrl}/tasks/inference/terminate?task_uuid=${uuid}`, {
+				method: 'POST',
+				body: JSON.stringify({ ai_model_id: aiModel, video_id: video.video_id }),
+				headers: { 'Content-Type': 'application/json' },
+			})
+		} catch (error) {
+			console.error(error)
+		}
 	}
 
 	const getReadyStatus = async (taskUuid: string) => {
 		const serverUrl = process.env?.REACT_APP_SERVER_URL
-		const response = await fetch(`${serverUrl}/tasks/status?task_uuid=${taskUuid}`, {
-			method: 'GET',
-		})
-		const data = await response.json()
-		return data.data.status
+		try {
+			const response = await fetch(`${serverUrl}/tasks/status?task_uuid=${taskUuid}`, {
+				method: 'GET',
+			})
+			const data = await response.json()
+			return data.data.status
+		} catch (error) {
+			console.error(error)
+		}
 	}
 
 	const openWebSocket = async (uuid: string): Promise<Websocket> => {
 		const serverUrl = process.env?.REACT_APP_WS_URL
-		setWs(new Websocket(`${serverUrl}/tasks/inference/${uuid}`))
+		try {
+			setWs(new Websocket(`${serverUrl}/tasks/inference/${uuid}`))
+		} catch (error) {
+			console.error(error)
+		}
 	}
 
 	const isAnnotationReady = async () => {
 		const serverUrl = process.env?.REACT_APP_SERVER_URL
-		const annotationStatus = await fetch(`${serverUrl}/tasks/annotation/status?task_uuid=${modelUuid}`)
-		const { data } = await annotationStatus.json()
-		return data.status
+		try {
+			const annotationStatus = await fetch(`${serverUrl}/tasks/annotation/status?task_uuid=${modelUuid}`)
+			const { data } = await annotationStatus.json()
+			return data.status
+		} catch (error) {
+			console.error(error)
+		}
 	}
 
-	const exportAnnotation = () => {
+	const exportAnnotation = async () => {
 		const serverUrl = process.env?.REACT_APP_SERVER_URL
-		fetch(`${serverUrl}/tasks/export/${modelUuid}?overwrite=true`, {
-			method: 'POST',
-		})
+		try {
+			await fetch(`${serverUrl}/tasks/export/${modelUuid}?overwrite=true`, {
+				method: 'POST',
+			})
+		} catch (error) {
+			console.error(error)
+		}
 	}
 
 	const step1ConfirmHandler = (videoId: string): void => {

@@ -22,6 +22,7 @@ const VideoSettings: React.FC<SearchProps> = ({ setAiModel, setScale, aiModel, s
 			.then((data: AIModel[]) => {
 				setOptions(data)
 			})
+			.catch((err) => console.log(err))
 	}
 
 	return (
