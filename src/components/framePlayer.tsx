@@ -62,6 +62,7 @@ const FramePlayer = forwardRef<FramePlayerMethods, FramePlayerProps>(
 		const [currentSecond, setCurrentSecond] = useState<number>(0)
 		const [currentFrame, setCurrentFrame] = useState<number>(0)
 		const framePlayerRef = useRef<HTMLCanvasElement>(null)
+		const previousFrameIndexRef = useRef<number | null>(null)
 
 		const drawFrame = (frameIndex: number) => {
 			const canvas = framePlayerRef.current
@@ -119,9 +120,14 @@ const FramePlayer = forwardRef<FramePlayerMethods, FramePlayerProps>(
 				if (!isPlaying) return
 				const elapsed = time - startTimeRef.current
 				const frameIndex = Math.floor(elapsed / frameDuration) % cachedImages.length
-				drawFrame(frameIndex)
-				setCurrentFrame(frameIndex)
-				setCurrentSecond((frameIndex * frameDuration) / 1000)
+
+				if (frameIndex !== previousFrameIndexRef.current) {
+					drawFrame(frameIndex)
+					setCurrentFrame(frameIndex)
+					setCurrentSecond((frameIndex * frameDuration) / 1000)
+					previousFrameIndexRef.current = frameIndex
+				}
+
 				animationRef.current = requestAnimationFrame(render)
 			}
 
