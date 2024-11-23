@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Video, VideoObject } from '@types/index.tsx'
+import useWindowResize from '@hooks/window-resize.tsx'
 
 interface TimelineProps {
 	video: Video
@@ -12,7 +13,6 @@ interface TimelineProps {
 	currentSecond: number
 	frameDuration: number
 	currentFrame: number
-	windowResize: any
 	drawFrame: (frame: number) => void
 	setSelectedObject: (object: VideoObject) => void
 }
@@ -28,12 +28,12 @@ const Timeline: React.FC<TimelineProps> = ({
 	currentSecond,
 	frameDuration,
 	currentFrame,
-	windowResize,
 	drawFrame,
 	setSelectedObject,
 }) => {
 	const timelineRef = useRef<HTMLCanvasElement>(null)
 	const [isDragging, setIsDragging] = useState(false)
+	const windowResize = useWindowResize()
 
 	useEffect(() => {
 		const drawTimeline = () => {

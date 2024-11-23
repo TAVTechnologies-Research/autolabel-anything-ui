@@ -94,7 +94,7 @@ const FramePlayer = forwardRef<FramePlayerMethods, FramePlayerProps>(
 
 			if (newFrameRate !== frameWidth) {
 				setFrameWidth(newFrameRate)
-				drawFrame(currentFrame)
+				setTimeout(() => drawFrame(currentFrame), 0)
 			}
 		}, [windowResize])
 
@@ -222,7 +222,6 @@ const FramePlayer = forwardRef<FramePlayerMethods, FramePlayerProps>(
 						setCurrentFrame={setCurrentFrame}
 						currentSecond={currentSecond}
 						currentFrame={currentFrame}
-						windowResize={windowResize}
 						drawFrame={drawFrame}
 						frameDuration={frameDuration}
 						setSelectedObject={setSelectedObject}
