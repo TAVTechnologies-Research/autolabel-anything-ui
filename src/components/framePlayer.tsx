@@ -92,8 +92,10 @@ const FramePlayer = forwardRef<FramePlayerMethods, FramePlayerProps>(
 			const { width } = windowResize
 			const newFrameRate = width * frameRate
 
-			setFrameWidth(newFrameRate)
-			drawFrame(currentFrame)
+			if (newFrameRate !== frameWidth) {
+				setFrameWidth(newFrameRate)
+				drawFrame(currentFrame)
+			}
 		}, [windowResize])
 
 		useEffect(() => {
