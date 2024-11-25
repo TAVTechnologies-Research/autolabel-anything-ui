@@ -59,9 +59,13 @@ const App: React.FC = () => {
 
 						const data = message.data
 						await cacheImageUpdate({ image_base64: data.image_base64 }, data.frame_number)
-						framePlayerRef.current?.drawFrame(data.frame_number)
-						framePlayerRef.current?.setCurrentFrame(data.frame_number)
-						framePlayerRef.current?.setCurrentSecond((data.frame_number * frameDuration) / 1000)
+
+						setTimeout(() => {
+							framePlayerRef.current?.drawFrame(data.frame_number)
+							framePlayerRef.current?.setCurrentFrame(data.frame_number)
+							framePlayerRef.current?.setCurrentSecond((data.frame_number * frameDuration) / 1000)
+						}, 0)
+
 						break
 				}
 			})

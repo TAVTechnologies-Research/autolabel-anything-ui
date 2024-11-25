@@ -19,7 +19,6 @@ interface FramePlayerProps {
 	removeMarker: (marker: any) => void
 	step: number
 	fetching: boolean
-	drawFrame: (frameIndex: number) => void
 	currentFrame: number
 	setCurrentFrame: (frame: number) => void
 	currentSecond: number
