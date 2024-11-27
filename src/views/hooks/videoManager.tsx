@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Video, VideoObject, VideoMarker } from '@types/index.tsx'
 import { objectColor } from '@utils/index.tsx'
+import { v4 as uuidv4 } from 'uuid'
 
 const filterByFrameNumber = (data: VideoObject[], frameNumber: number): VideoObject[] => {
 	return [...data]
@@ -26,7 +27,7 @@ const useVideoManager = (ws) => {
 			return Promise.reject('Frame already exists')
 		}
 
-		const uuid = window.crypto.randomUUID()
+		const uuid = uuidv4()
 		const newObject: VideoObject = {
 			id: uuid,
 			title: `Object ${video.objects.length + 1}`,
@@ -73,7 +74,7 @@ const useVideoManager = (ws) => {
 			newObject = await createObject({ frameNumber })
 		}
 
-		const uuid = window.crypto.randomUUID()
+		const uuid = uuidv4()
 		const newChild = {
 			id: uuid,
 			frameNumber,

@@ -64,7 +64,7 @@ const App: React.FC = () => {
 							framePlayerRef.current?.drawFrame(data.frame_number)
 							framePlayerRef.current?.setCurrentFrame(data.frame_number)
 							framePlayerRef.current?.setCurrentSecond((data.frame_number * frameDuration) / 1000)
-						}, 0)
+						}, 10)
 
 						break
 				}
@@ -217,15 +217,15 @@ const App: React.FC = () => {
 		}
 	}
 
-	const exportAnnotation = async () => {
+	const exportAnnotation = () => {
 		const serverUrl = process.env?.REACT_APP_SERVER_URL
-		try {
-			await fetch(`${serverUrl}/tasks/export/${modelUuid}?overwrite=true`, {
-				method: 'POST',
+		fetch(`${serverUrl}/tasks/export/${modelUuid}?overwrite=true`, {
+			method: 'POST',
+		})
+			.then(() => {
+				terminateModel(modelUuid)
 			})
-		} catch (error) {
-			console.error(error)
-		}
+			.catch((error) => console.error(error))
 	}
 
 	const step1ConfirmHandler = (videoId: string): void => {
@@ -241,7 +241,7 @@ const App: React.FC = () => {
 		const checkAnnotationStatus = async () => {
 			const status = await isAnnotationReady()
 			if (status === 'ready') {
-				await exportAnnotation()
+				exportAnnotation()
 			} else if (status !== 'failed') {
 				setTimeout(checkAnnotationStatus, 1000)
 			}
