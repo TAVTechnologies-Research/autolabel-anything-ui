@@ -58,7 +58,7 @@ const useVideoManager = (ws) => {
 	const addMarker = (data: VideoObject[]) => {
 		const wsMessageObject = {
 			msg_type: 'add_points',
-			data: [...data],
+			data: [...data].map((i) => ({ ...i, label: i.title })),
 			meta: { returnType: 'frame', scale, returnObjectThumbnail: true },
 		}
 		const wsMessage = JSON.stringify(wsMessageObject)
@@ -127,7 +127,7 @@ const useVideoManager = (ws) => {
 	const trackObjects = () => {
 		const wsMessageObject = {
 			msg_type: 'run_inference',
-			data: [...video.objects],
+			data: [...video.objects].map((i) => ({ ...i, label: i.title })),
 			meta: { returnType: 'frame', scale },
 		}
 		const wsMessage = JSON.stringify(wsMessageObject)

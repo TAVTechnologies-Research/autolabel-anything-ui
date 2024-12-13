@@ -29,6 +29,7 @@ export interface FramePlayerMethods {
 	setCurrentFrame: (currentFrame: number) => void
 	setCurrentSecond: (currentSecond: number) => void
 	drawFrame: (frameIndex: number) => void
+	setIsPlaying: (isPlaying: boolean) => void
 }
 
 const FramePlayer = forwardRef<FramePlayerMethods, FramePlayerProps>(
@@ -84,6 +85,9 @@ const FramePlayer = forwardRef<FramePlayerMethods, FramePlayerProps>(
 			},
 			drawFrame: (frameIndex: number) => {
 				drawFrame(frameIndex)
+			},
+			setIsPlaying: (isPlaying: boolean) => {
+				setIsPlaying(isPlaying)
 			},
 		}))
 

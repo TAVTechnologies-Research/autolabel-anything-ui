@@ -61,6 +61,7 @@ const App: React.FC = () => {
 						await cacheImageUpdate({ image_base64: data.image_base64 }, data.frame_number)
 
 						setTimeout(() => {
+							framePlayerRef.current?.setIsPlaying(false)
 							framePlayerRef.current?.drawFrame(data.frame_number)
 							framePlayerRef.current?.setCurrentFrame(data.frame_number)
 							framePlayerRef.current?.setCurrentSecond((data.frame_number * frameDuration) / 1000)
@@ -297,6 +298,7 @@ const App: React.FC = () => {
 						setSelectedObject={setSelectedObject}
 						deleteObject={deleteObject}
 						loadedImages={loadedImages}
+						setVideo={setVideo}
 					/>
 				</Aside>
 			)}
@@ -319,6 +321,7 @@ const App: React.FC = () => {
 						setSelectedObject={setSelectedObject}
 						deleteObject={deleteObject}
 						loadedImages={loadedImages}
+						setVideo={setVideo}
 					/>
 				</Aside>
 			)}

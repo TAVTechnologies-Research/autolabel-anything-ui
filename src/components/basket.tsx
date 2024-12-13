@@ -2,6 +2,7 @@ import React from 'react'
 import BasketItem from './basketItem.tsx'
 import './basket.scss'
 import { ReactComponent as PlusIcon } from '@assets/svg/plus.svg'
+import { Video } from '../types'
 
 interface BasketProps {
 	video: {
@@ -19,14 +20,21 @@ interface BasketProps {
 	deleteObject: (id: string) => void
 	description: string
 	step: number
+	setVideo: (video: Video) => void
 }
 
-const Basket: React.FC<BasketProps> = ({ video, step, thumbnails, createObject, selectedObject, setSelectedObject, deleteObject, description }) => {
+const Basket: React.FC<BasketProps> = ({ video, step, thumbnails, createObject, selectedObject, setSelectedObject, deleteObject, description, setVideo }) => {
 	const handleCreateObject = () => {
 		createObject({ frameNumber: null, x: null, y: null })
 	}
 
-	const onSaveObjectTitle = (title: string) => {}
+	const onSaveObjectTitle = (title: string) => {
+		const objectIndex = video.objects.findIndex((o) => o.id === selectedObject?.id)
+		const videoObjects = [...video.objects]
+		videoObjects.splice(objectIndex, 1, { ...selectedObject, title })
+
+		setVideo({ ...video, objects: videoObjects })
+	}
 
 	const list = () => {
 		return (
