@@ -249,6 +249,7 @@ const App: React.FC = () => {
 		}
 
 		await checkAnnotationStatus()
+		ws.close()
 		setStep(1)
 		clearHandler()
 	}
