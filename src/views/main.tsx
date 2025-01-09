@@ -281,7 +281,11 @@ const App: React.FC = () => {
 					fetching={fetching}
 					selectedVideo={selectedVideo}
 					selectedObject={selectedObject}
-					confirmButtonOptions={{ text: 'Track Objects', loading: fetching, show: video.objects.length > 0 }}
+					confirmButtonOptions={{
+						text: 'Track Objects',
+						loading: fetching,
+						show: video.objects.length > 0 && video.objects[video.objects.length - 1].child.length > 0,
+					}}
 					cancelButtonOptions={{ show: true, text: 'Start Over', child: <Refresh className="mr-1" />, type: 'danger' }}
 					footerConfirmHandler={step2ConfirmHandler}
 					footerCancelHandler={startOverHandler}
